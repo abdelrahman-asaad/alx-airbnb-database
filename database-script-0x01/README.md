@@ -1,7 +1,8 @@
 # 🏠 Airbnb Database Schema
 
 ## 📄 Overview
-This directory contains the **SQL schema** for the Airbnb database, designed according to the provided specifications and normalized to **Third Normal Form (3NF)**.
+This directory contains the **SQL schema** for the Airbnb database, designed according to the provided specifications and normalized to
+ **Third Normal Form (3NF)**.
 
 ---
 
