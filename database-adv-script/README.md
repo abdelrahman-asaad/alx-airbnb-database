@@ -44,3 +44,39 @@ the result
 | 38334214-aebf-11f0-9da6-d4bed95d063f | Laila Hassan | 034dbe57-aec0-11f0-9da6-d4bed95d063f | 2025-12-10 | 2025-12-15 | pending   |
 +--------------------------------------+--------------+--------------------------------------+------------+------------+-----------+
 4 rows in set (0.00 sec)
+_________________________
+
+# Subqueries Practice
+
+## 🎯 Objective
+This task demonstrates how to use **correlated** and **non-correlated** subqueries in SQL for the Airbnb Database.
+
+---
+
+## 🧮 1️⃣ Non-Correlated Subquery
+**Goal:** Retrieve all properties where the average rating is greater than 4.0.
+
+### SQL Query:
+```sql
+SELECT 
+    property_id,
+    name,
+    location,
+    price_per_night
+FROM property
+WHERE property_id IN (
+    SELECT property_id
+    FROM review
+    GROUP BY property_id
+    HAVING AVG(rating) > 4.0
+);
+
+mysql> SOURCE C:/Users/Dell/Desktop/airbnp/alx-airbnb-database/database-adv-script/subqueries.sql;
++--------------------------------------+-------------------+-------------------+-----------------+
+| property_id                          | name              | location          | price_per_night |
++--------------------------------------+-------------------+-------------------+-----------------+
+| 034d013c-aec0-11f0-9da6-d4bed95d063f | Seaview Apartment | Alexandria, Egypt |          120.00 |
++--------------------------------------+-------------------+-------------------+-----------------+
+1 row in set (0.01 sec)
+Empty set (0.00 sec) لان مفيش مستخدمين باكتر من 3 حجوزات
+_____________________
