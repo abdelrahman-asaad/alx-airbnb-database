@@ -28,7 +28,7 @@ SELECT
     review.created_at AS review_date
 FROM property
 LEFT JOIN review 
-    ON property.property_id = review.property_id;
+    ON property.property_id = review.property_id
 ORDER BY property.name;    
 
 
