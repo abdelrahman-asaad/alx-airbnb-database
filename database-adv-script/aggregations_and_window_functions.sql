@@ -9,7 +9,7 @@ LEFT JOIN booking b
 GROUP BY u.user_id, u.first_name, u.last_name
 ORDER BY total_bookings DESC;
 
--- 2️⃣ Window Function: Rank properties based on total number of bookings
+-- 2️⃣ Window Function using RANK(): Rank properties based on total number of bookings
 SELECT 
     p.property_id,
     p.name AS property_name,
@@ -21,6 +21,18 @@ LEFT JOIN booking b
 GROUP BY p.property_id, p.name
 ORDER BY booking_rank;
 
+-- 3️⃣ Window Function using ROW_NUMBER(): Assign a unique row number to each property based on total bookings
+SELECT 
+    p.property_id,
+    p.name AS property_name,
+    COUNT(b.booking_id) AS total_bookings,
+    ROW_NUMBER() OVER (ORDER BY COUNT(b.booking_id) DESC) AS booking_row_number
+FROM property p
+LEFT JOIN booking b 
+    ON p.property_id = b.property_id
+GROUP BY p.property_id, p.name
+ORDER BY booking_row_number;
+
 -- شرح مختصر
 
 -- الاستعلام الأول:
@@ -28,4 +40,7 @@ ORDER BY booking_rank;
 -- لو المستخدم معندوش حجوزات، بيظهر برضو بسبب LEFT JOIN.
 
 -- الاستعلام الثاني:
--- بيحسب عدد الحجوزات لكل عقار، وبعدها يستخدم RANK() (دالة نافذة window function) لترتيب العقارات حسب عدد الحجوزات من الأعلى إلى الأقل.
+-- بيحسب عدد الحجوزات لكل عقار، وبعدها يستخدم RANK() لترتيب العقارات حسب عدد الحجوزات من الأعلى إلى الأقل.
+
+-- الاستعلام الثالث:
+-- نفس فكرة RANK() لكنه بيستخدم ROW_NUMBER() علشان يدي رقم تسلسلي فريد لكل صف حسب الترتيب.
