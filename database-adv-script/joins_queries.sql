@@ -62,3 +62,4 @@ SELECT
 FROM user
 RIGHT JOIN booking 
     ON user.user_id = booking.user_id;
+
