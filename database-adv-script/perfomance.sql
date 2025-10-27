@@ -45,6 +45,10 @@ WHERE p.location LIKE '%Egypt%'
 
 
 -- 3️⃣ Optimized Query (After adding indexes & removing unnecessary columns)
+
+-- CREATE INDEX idx_property_location ON property(location);
+-- CREATE INDEX idx_payment_method ON payment(payment_method);
+
 EXPLAIN ANALYZE
 SELECT 
     b.booking_id,
@@ -56,5 +60,5 @@ FROM booking b
 JOIN user u ON b.user_id = u.user_id
 JOIN property p ON b.property_id = p.property_id
 LEFT JOIN payment pay ON b.booking_id = pay.booking_id
-WHERE p.location LIKE '%Egypt%'
-  AND pay.payment_method = 'paypal';
+WHERE p.location LIKE '%Egypt%'  -- has an index
+  AND pay.payment_method = 'paypal'; -- has an index
