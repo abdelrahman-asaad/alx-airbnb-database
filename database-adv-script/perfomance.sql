@@ -1,4 +1,5 @@
 -- 1️⃣ Initial Query (Before Optimization)
+-- Retrieves all bookings with user, property, and payment details
 SELECT 
     b.booking_id,
     b.check_in_date,
@@ -15,7 +16,11 @@ SELECT
 FROM booking b
 JOIN user u ON b.user_id = u.user_id
 JOIN property p ON b.property_id = p.property_id
-LEFT JOIN payment pay ON b.booking_id = pay.booking_id;
+LEFT JOIN payment pay ON b.booking_id = pay.booking_id
+WHERE pay.status = 'completed'
+  AND p.location LIKE '%Egypt%';
+  
+
 -- 2️⃣ Analyze performance before optimization
 EXPLAIN ANALYZE
 SELECT 
@@ -34,7 +39,11 @@ SELECT
 FROM booking b
 JOIN user u ON b.user_id = u.user_id
 JOIN property p ON b.property_id = p.property_id
-LEFT JOIN payment pay ON b.booking_id = pay.booking_id;
+LEFT JOIN payment pay ON b.booking_id = pay.booking_id
+WHERE pay.status = 'completed'
+  AND p.location LIKE '%Egypt%';
+
+
 -- 3️⃣ Optimized Query (After adding indexes & removing unnecessary columns)
 EXPLAIN ANALYZE
 SELECT 
@@ -46,4 +55,6 @@ SELECT
 FROM booking b
 JOIN user u ON b.user_id = u.user_id
 JOIN property p ON b.property_id = p.property_id
-LEFT JOIN payment pay ON b.booking_id = pay.booking_id;
+LEFT JOIN payment pay ON b.booking_id = pay.booking_id
+WHERE pay.status = 'completed'
+  AND p.location LIKE '%Egypt%';
